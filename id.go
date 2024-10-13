@@ -5,6 +5,7 @@ import (
 	"math/big"
 	"math/rand"
 	"strconv"
+	"time"
 
 	"github.com/xh3b4sd/tracer"
 )
@@ -48,4 +49,22 @@ func (i ID) Int() int64 {
 
 func (i ID) String() string {
 	return string(i)
+}
+
+func (i ID) Time() time.Time {
+	if len(i) < 16 {
+		return time.Time{}
+	}
+
+	// Every randomized object ID is constructed using a unix timestamp and a 6
+	// digit pseudo random number. In order to extract the original timestamp, we
+	// drop the random digits and reconstruct the time object using the resulting
+	// unix seconds.
+	//
+	//
+	//     second    1728336954
+	//     milli     1728336954 315
+	//     micro     1728336954 315 444
+	//
+	return time.Unix(i.Int()/1e6, 0).UTC()
 }
