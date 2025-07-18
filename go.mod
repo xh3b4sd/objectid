@@ -1,5 +1,5 @@
 module github.com/xh3b4sd/objectid
 
-go 1.22.5
+go 1.24
 
-require github.com/xh3b4sd/tracer v0.11.1
+require github.com/xh3b4sd/tracer v1.0.0
